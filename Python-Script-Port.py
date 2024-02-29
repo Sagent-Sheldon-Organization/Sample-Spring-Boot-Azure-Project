@@ -41,3 +41,20 @@ get_response = requests.get(f"{API_URL}/blueprints/{blueprint_id}/entities/{enti
 entity = get_response.json()['entity']
 print(f"Image tag is: {entity['properties']['runLink']}")
 
+image_entity_json = {
+  "identifier": "example-image",
+  "team": [],
+  "properties": {
+    "imageTag": "v1",
+    "synkHighVulnerabilities": "0",
+    "synkMediumVulnerabilities": "0",
+    "gitRepoUrl": "https://github.com/my-org/my-cool-repo",
+    "imageRegistry": "docker.io/cool-image",
+    "size": "0.71",
+    "unitTestCoverage": "20",
+    "unitTestCoverage": "50"
+  },
+  "relations": {}
+}
+
+create_image_response = requests.post(f'{API_URL}/blueprints/image/entities?upsert=true', json=image_entity_json, headers=headers)
