@@ -37,3 +37,16 @@ stages:
       inputs:
         pathToPublish: $(Build.ArtifactStagingDirectory)
         artifactName: SampleSpringBootBuild
+     - script: |
+         pip install -r port_requirements.txt
+     - task: PythonScript@0
+       env:
+         PORT_CLIENT_ID: $(PORT_CLIENT_ID)
+         PORT_CLIENT_SECRET: $(PORT_CLIENT_SECRET)
+         QUEUED_BY: $(Build.QueuedBy)
+         GIT_SHA: $(Build.SourceVersion)
+         JOB_NAME: $(Build.DefinitionName)
+         JOB_URL: "$(System.TeamFoundationCollectionUri)$(System.TeamProject)/_build/results?buildId=$(Build.BuildId)"
+       inputs:
+         scriptSource: "filePath"
+         scriptPath: "main.py"
