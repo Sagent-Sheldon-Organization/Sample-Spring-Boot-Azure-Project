@@ -32,3 +32,12 @@ entity_json = {
 }
 
 create_response = requests.post(f'{API_URL}/blueprints/{blueprint_id}/entities?upsert=true&create_missing_related_entities=true', json=entity_json, headers=headers)
+
+entity_id = "new-cijob-run"
+blueprint_id = "ciJob"
+
+get_response = requests.get(f"{API_URL}/blueprints/{blueprint_id}/entities/{entity_id}",
+                        headers=headers)
+entity = get_response.json()['entity']
+print(f"Image tag is: {entity['properties']['runLink']}")
+
